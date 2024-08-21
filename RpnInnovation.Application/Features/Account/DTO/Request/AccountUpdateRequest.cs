@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RpnInnovation.Application.Features.Account.DTO.Request
 {
-    public class CustomerUpdateRequest
+    public class AccountUpdateRequest
     {
         public string? Email { get; set; }
         public string? Phone { get; set; }

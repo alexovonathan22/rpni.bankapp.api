@@ -16,7 +16,7 @@ namespace RpnInnovation.Infrastructure.Services
         {
             
         }
-        public Task<CustomerCreationResponse> CreateBankAccount(CustomerCreationRequest dto)
+        public Task<AccountCreationResponse> CreateBankAccount(AccountCreationRequest dto)
         {
             throw new NotImplementedException();
         }
@@ -31,12 +31,12 @@ namespace RpnInnovation.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<BaseReponse<CustomerUpdateResponse>> UpdateAccountDetails(CustomerUpdateRequest dto)
+        public Task<BaseReponse<AccountUpdateResponse>> UpdateAccountDetails(AccountUpdateRequest dto)
         {
             throw new NotImplementedException();
         }
 
-        Task<BaseReponse<CustomerCreationResponse>> IAccountService.CreateBankAccount(CustomerCreationRequest dto)
+        Task<BaseReponse<AccountCreationResponse>> IAccountService.CreateBankAccount(AccountCreationRequest dto)
         {
             throw new NotImplementedException();
         }

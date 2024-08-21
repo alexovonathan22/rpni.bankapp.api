@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RpnInnovation.Application.Features.Account.DTO.Request
+namespace RpnInnovation.Domain.Entities
 {
-    public class CustomerCreationRequest
+    public class CustomerAccount : BaseEntity
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -16,6 +16,7 @@ namespace RpnInnovation.Application.Features.Account.DTO.Request
         public string? Country { get; set; }
         public string? State { get; set; }
         public string? Bvn { get; set; }
+        public string? AccountNumber { get; set; }
         public AccountType AccountType { get; set; }
     }
 }

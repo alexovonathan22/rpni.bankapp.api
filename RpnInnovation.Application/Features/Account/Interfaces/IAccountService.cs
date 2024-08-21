@@ -11,8 +11,8 @@ namespace RpnInnovation.Application.Features.Account.Interfaces
 {
     public interface IAccountService
     {
-        Task<BaseReponse<CustomerCreationResponse>> CreateBankAccount(CustomerCreationRequest dto);
-        Task<BaseReponse<CustomerUpdateResponse>> UpdateAccountDetails(CustomerUpdateRequest dto);
+        Task<BaseReponse<AccountCreationResponse>> CreateBankAccount(AccountCreationRequest dto);
+        Task<BaseReponse<AccountUpdateResponse>> UpdateAccountDetails(AccountUpdateRequest dto);
         Task<BaseReponse<GetAccountDetailResponse>> GetBankAccountDetails(string accountNumber);
         Task<BaseReponse<object>> GetAccountBalance(string accountNumber);
 

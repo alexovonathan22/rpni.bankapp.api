@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RpnInnovation.Application.Features.Account.DTO.Response
 {
-    public class CustomerCreationResponse
+    public class AccountUpdateResponse
     {
+
     }
 }
