@@ -16,6 +16,8 @@ namespace RpnInnovation.Infrastructure.Persistence
             :base(options) { }
         DbSet<Account> Account { get; set; }
         DbSet<Transaction> Transactions { get; set; }
+        DbSet<CustomerAccount> CustomerAccounts { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

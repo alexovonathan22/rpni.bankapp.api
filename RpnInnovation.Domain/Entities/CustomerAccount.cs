@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace RpnInnovation.Domain.Entities
 {
+    // KYC
     public class CustomerAccount : BaseEntity
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
-        public string? Phone { get; set; }
-        public string? Country { get; set; }
-        public string? State { get; set; }
         public string? Bvn { get; set; }
-        public string? AccountNumber { get; set; }
-        public AccountType AccountType { get; set; }
+        public string? CountryCode { get; set; }
+        public string? Phone { get; set; } //90000000
+        public string? State { get; set; }
+        public string? Country { get; set; } 
     }
 }

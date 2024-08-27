@@ -7,29 +7,18 @@ using System.Threading.Tasks;
 
 namespace RpnInnovation.Infrastructure.Persistence
 {
-    public class Repository<T> : IReadRepository<T>, IRepository<T> where T : class
+    /// <summary>
+    /// Get data from db source
+    /// </summary>
+    public class ReadRepository<T> : IReadRepository<T> where T : class
     {
-        public Repository()
-        {
-            
-        }
-
-        public Task<string> AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public Task<List<T>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
         public Task<T> GetByIdAsync(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> UpdateAsync(T entity)
         {
             throw new NotImplementedException();
         }
