@@ -13,6 +13,9 @@ namespace RpnInnovation.Domain.Entities
         public decimal Balance { get; set; }
         public decimal LedgerBalance { get; set; }
         public AccountType AccountType { get; set; }
-
+        public int CustomerID { get; set; } // foreign key
+        public string Email { get; set; } // foreign key
+        public string Bvn { get; set; } // foreign key
+        public CustomerAccount Customer { get; set; }
     }
 }

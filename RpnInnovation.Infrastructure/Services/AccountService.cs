@@ -2,6 +2,8 @@
 using RpnInnovation.Application.Features.Account.DTO.Response;
 using RpnInnovation.Application.Features.Account.Interfaces;
 using RpnInnovation.Application.Helper;
+using RpnInnovation.Application.OtherInterfaces;
+using RpnInnovation.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +14,27 @@ namespace RpnInnovation.Infrastructure.Services
 {
     public class AccountService : IAccountService
     {
-        public AccountService()
+        private readonly IRepository<CustomerAccount> _customerRepository;
+        private readonly IReadRepository<CustomerAccount> _readCustomerRepo;
+        private readonly IRepository<Account> _acctRepository;
+        private readonly IReadRepository<Account> _readAcctRepository;
+
+        public AccountService(IReadRepository<Account> readAcctRepository, IRepository<Account> acctRepository, IReadRepository<CustomerAccount> readCustomerRepo, IRepository<CustomerAccount> customerRepository)
         {
-            
+            _readAcctRepository = readAcctRepository;
+            _acctRepository = acctRepository;
+            _readCustomerRepo = readCustomerRepo;
+            _customerRepository = customerRepository;
         }
-        public Task<AccountCreationResponse> CreateBankAccount(AccountCreationRequest dto)
+
+        public async Task<AccountCreationResponse> CreateBankAccount(AccountCreationRequest dto)
         {
-            throw new NotImplementedException();
+           //create cst
+
+
+            //creat act
+
+            // send email
         }
 
         public Task<BaseReponse<object>> GetAccountBalance(string accountNumber)
