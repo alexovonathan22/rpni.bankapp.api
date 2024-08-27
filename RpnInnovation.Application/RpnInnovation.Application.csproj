@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Transaction\DTO\Response\" />
-    <Folder Include="Features\Transaction\DTO\Request\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RpnInnovation.Domain\RpnInnovation.Domain.csproj" />
   </ItemGroup>
 
