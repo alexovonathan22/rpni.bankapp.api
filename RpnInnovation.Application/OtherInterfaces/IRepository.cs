@@ -17,8 +17,6 @@ namespace RpnInnovation.Application.OtherInterfaces
     {
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(long id);
-        Task<T> GetByEmailAsync(string email);
-
     }
 
     public interface IUnitOfWork

@@ -1,12 +1,6 @@
 ﻿using FluentValidation;
 using RpnInnovation.Application.Features.Account.DTO.Request;
 using RpnInnovation.Application.OtherInterfaces;
-using RpnInnovation.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RpnInnovation.Application.Validations
 {
