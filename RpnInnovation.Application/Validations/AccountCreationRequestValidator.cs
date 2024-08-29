@@ -30,7 +30,6 @@ namespace RpnInnovation.Application.Validations
             .NotEmpty().WithMessage("Provide a phone number.")
             .NotNull()
             .MaximumLength(10);
-            _customerRepository = customerRepository;
         }
 
         private async Task<bool> IsUniqueEmail(string email, CancellationToken token)
@@ -38,8 +37,8 @@ namespace RpnInnovation.Application.Validations
             try
             {
                 var doesNotExist = await _customerRepository.CheckCustomerDoesNotExistsByEmail(email);
-                if (doesNotExist) return false;
-                return true;
+                if (doesNotExist) return true;
+                return false;
             }
             catch (Exception ex)
             {

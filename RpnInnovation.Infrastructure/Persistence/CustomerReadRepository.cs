@@ -26,12 +26,12 @@ namespace RpnInnovation.Infrastructure.Persistence
             {
                 var count = await _dbSet.CountAsync(t => t.Email.ToLower().Equals(email.ToLower()));
                 
-                if (count > 0) { return true; }
+                if (count == 0) { return true; }
                 return false;
             }
             catch (Exception ex)
             {
-                return true;
+                return false;
             }
         }
     }
