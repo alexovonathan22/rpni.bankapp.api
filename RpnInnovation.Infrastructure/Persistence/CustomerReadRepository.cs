@@ -11,9 +11,9 @@ namespace RpnInnovation.Infrastructure.Persistence
 {
     public class CustomerReadRepository : ICustomerReadRepository
     {
-        private readonly AppContext _dbContext;
+        private readonly AppDBContext _dbContext;
         private readonly DbSet<CustomerAccount> _dbSet;
-        public CustomerReadRepository(AppContext dbContext)
+        public CustomerReadRepository(AppDBContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<CustomerAccount>();

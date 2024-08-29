@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RpnInnovation.Application.Features.Account.DTO.Request;
 using RpnInnovation.Application.Features.Account.Interfaces;
-using RpnInnovation.Infrastructure.Services;
 
 namespace RpnInnovation.WebApi.Controllers
 {

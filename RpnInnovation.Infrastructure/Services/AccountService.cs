@@ -49,10 +49,11 @@ namespace RpnInnovation.Infrastructure.Services
             // populating account object
             var cstAccount = new Account
             {
-                Email=createCst.Email,
-                AccountType=dto.AccountType,
-                Bvn=createCst.Bvn,
-                CustomerID=createCst.Id,   
+                Email = createCst.Email,
+                AccountType = dto.AccountType,
+                Bvn = createCst.Bvn,
+                CustomerID = createCst.Id,
+                AccountNumber = Generators.GenerateAccountNumber()
             };
 
             var createAccount = await _acctRepository.AddAsync(cstAccount);
@@ -66,6 +67,7 @@ namespace RpnInnovation.Infrastructure.Services
             // TODO :: send email
             response.Status = true;
             response.Message = $"Account created, you should receive an email confirmation.";
+            response.Data = new AccountCreationResponse() { AccountNumber=createAccount.AccountNumber, AccountTypeCreated=dto.AccountType.ToString(), CreatedOn=DateTime.Now};
             return response;
         }
 

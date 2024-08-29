@@ -12,7 +12,9 @@ namespace RpnInnovation.WebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddRepository();
+            builder.Services.AddRepository(builder);
+            builder.Services.AddValidators();
+            builder.Services.AddCoreServices();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
