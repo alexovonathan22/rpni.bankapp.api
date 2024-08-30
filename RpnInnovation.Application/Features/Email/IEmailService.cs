@@ -8,7 +8,7 @@ namespace RpnInnovation.Application.Features.Email
 {
     public interface IEmailService
     {
-        Task<bool> SendEmailAsync(string to, string from, string subject, string content);
+        bool SendEmailAsync(EmailResponse email);
         Task<bool> SendEmailWithAttachmentAsync(string email);
     }
 }

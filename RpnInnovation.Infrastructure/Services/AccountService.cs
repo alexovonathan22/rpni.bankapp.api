@@ -1,9 +1,11 @@
 ﻿using RpnInnovation.Application.Features.Account.DTO.Request;
 using RpnInnovation.Application.Features.Account.DTO.Response;
 using RpnInnovation.Application.Features.Account.Interfaces;
+using RpnInnovation.Application.Features.Email;
 using RpnInnovation.Application.Helper;
 using RpnInnovation.Application.OtherInterfaces;
 using RpnInnovation.Domain.Entities;
+using RpnInnovation.Domain.Helper;
 
 namespace RpnInnovation.Infrastructure.Services
 {
@@ -13,13 +15,15 @@ namespace RpnInnovation.Infrastructure.Services
         private readonly IReadRepository<CustomerAccount> _readCustomerRepo;
         private readonly IRepository<Account> _acctRepository;
         private readonly IReadRepository<Account> _readAcctRepository;
+        private readonly IEmailService _emailService;
 
-        public AccountService(IReadRepository<Account> readAcctRepository, IRepository<Account> acctRepository, IReadRepository<CustomerAccount> readCustomerRepo, IRepository<CustomerAccount> customerRepository)
+        public AccountService(IReadRepository<Account> readAcctRepository, IRepository<Account> acctRepository, IReadRepository<CustomerAccount> readCustomerRepo, IRepository<CustomerAccount> customerRepository, IEmailService emailService)
         {
             _readAcctRepository = readAcctRepository;
             _acctRepository = acctRepository;
             _readCustomerRepo = readCustomerRepo;
             _customerRepository = customerRepository;
+            _emailService = emailService;
         }
 
         public async Task<BaseReponse<AccountCreationResponse>> CreateBankAccount(AccountCreationRequest dto)
@@ -27,18 +31,9 @@ namespace RpnInnovation.Infrastructure.Services
             var response = new BaseReponse<AccountCreationResponse>();
             //create cst
             // prepared cst entity to send into db
-            var cst = new CustomerAccount {
-                Email=dto.Email,
-                Bvn=dto.Bvn,
-                Country=dto.Country,
-                CountryCode=dto.CountryCode,
-                FirstName=dto.FirstName,
-                LastName=dto.LastName,
-                Phone=dto.Phone,
-                State=dto.State,
-            };
-
+            var cst = AccountCreationRequest.Copy(dto);
             var createCst = await _customerRepository.AddAsync(cst);
+
             if (createCst is null || createCst.Id < 1)
             {
                 response.Message = $"Could not create customer, try again later.";
@@ -47,16 +42,9 @@ namespace RpnInnovation.Infrastructure.Services
             }
             //create act
             // populating account object
-            var cstAccount = new Account
-            {
-                Email = createCst.Email,
-                AccountType = dto.AccountType,
-                Bvn = createCst.Bvn,
-                CustomerID = createCst.Id,
-                AccountNumber = Generators.GenerateAccountNumber()
-            };
-
+            var cstAccount = AccountCreationRequest.Copy(createCst, dto);
             var createAccount = await _acctRepository.AddAsync(cstAccount);
+
             if (createAccount is null || createAccount.Id < 1)
             {
                 response.Message = $"Could not create customer-account, try again later.";
@@ -65,9 +53,20 @@ namespace RpnInnovation.Infrastructure.Services
             }
 
             // TODO :: send email
+            // step 1: it to prepare our message
+            var emailPayload = Generators.CreateWelcomeEmail(createCst, createAccount);
+            // call our email service to send prepared-msg to cst
+            var sendEmail = _emailService.SendEmailAsync(emailPayload);
+            if (sendEmail)
+            {
+                response.Status = true;
+                response.Message = $"Account created, you should receive an email confirmation.";
+                response.Data = new AccountCreationResponse() { AccountNumber = createAccount.AccountNumber, AccountTypeCreated = dto.AccountType.ToString(), CreatedOn = DateTime.Now };
+                return response;
+            }
             response.Status = true;
-            response.Message = $"Account created, you should receive an email confirmation.";
-            response.Data = new AccountCreationResponse() { AccountNumber=createAccount.AccountNumber, AccountTypeCreated=dto.AccountType.ToString(), CreatedOn=DateTime.Now};
+            response.Message = $"Account created, but could not send email confirmation instantly.";
+            response.Data = new AccountCreationResponse() { AccountNumber = createAccount.AccountNumber, AccountTypeCreated = dto.AccountType.ToString(), CreatedOn = DateTime.Now };
             return response;
         }
 
