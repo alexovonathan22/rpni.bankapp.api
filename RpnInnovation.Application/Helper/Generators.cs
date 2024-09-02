@@ -31,10 +31,12 @@ namespace RpnInnovation.Domain.Helper
             }
         }
 
-        public static string GenerateAccountNumber(int length = 10)
+        public static string GenerateAccountNumber(int length = 6)
         {
             const string chars = "0123456789";
             StringBuilder result = new StringBuilder(length);
+            var bankPrefix = "6800";
+            result.Append(bankPrefix);
             Random random = new Random();
 
             for (int i = 0; i < length; i++)
