@@ -21,5 +21,7 @@ jobs:
           run: dotnet build --no-restore
         - name: Check PWD
           run: pwd
+        - name: List PWD
+          run: ls -al
         - name: Run unit Tests
           run: dotnet test --no-build -verbosity normal
