@@ -24,4 +24,5 @@ jobs:
         - name: List PWD
           run: ls -al
         - name: Run unit Tests
-          run: dotnet test --no-build -verbosity normal
+          run: dotnet test --no-restore -v normal
+
