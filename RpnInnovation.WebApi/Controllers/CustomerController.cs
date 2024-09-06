@@ -21,7 +21,7 @@ namespace RpnInnovation.WebApi.Controllers
 
             var serviceResponse = await _accountService.CreateBankAccount(dto);
             // todo :: log output
-            if (serviceResponse.Status) {
+            if (serviceResponse is not null) {
                 return Ok(serviceResponse);
             }
             return BadRequest(serviceResponse);

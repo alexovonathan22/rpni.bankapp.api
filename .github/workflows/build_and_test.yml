@@ -1,0 +1,23 @@
+name: Build and Test
+
+on:
+    push:
+        branches: ["master"]
+
+jobs:
+    build-test:  
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code on master
+          uses: actions/checkout@v4
+        - name: Setup .Net
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: 8.0.x
+        - name: Restore app dependencies
+          run: dotnet restore
+        - name: Build Project
+          run: dotnet build --no-restore
+        - name: Run unit Tests
+          run: dotnet test --no-build -verbosity normal

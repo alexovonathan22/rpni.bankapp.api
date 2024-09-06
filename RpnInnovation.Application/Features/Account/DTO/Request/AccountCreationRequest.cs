@@ -50,5 +50,39 @@ namespace RpnInnovation.Application.Features.Account.DTO.Request
             };
             return cstAccount;
         }
+
+        public static AccountCreationRequest CopyTestsPayloadOK()
+        {
+            var acctREq = new AccountCreationRequest
+            {
+                Email = "aov.nathan@gmail.com",
+                AccountType = Domain.Enums.AccountType.Savings,
+                Bvn = "2222222222",
+                Country = "NG",
+                CountryCode="234",
+                FirstName="Aeon",
+                LastName="Uyi",
+                Phone="09033333333",
+                State="Uyo"
+            };
+            return acctREq;
+        }
+
+        public static AccountCreationRequest CopyTestsPayloadFailed()
+        {
+            var acctREq = new AccountCreationRequest
+            {
+              
+                AccountType = Domain.Enums.AccountType.Savings,
+                Bvn = "2222222222",
+                Country = "NG",
+                CountryCode = "234",
+                FirstName = "Aeon",
+                LastName = "Uyi",
+                Phone = "09033333333",
+                State = "Uyo"
+            };
+            return acctREq;
+        }
     }
 }
