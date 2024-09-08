@@ -5,7 +5,7 @@ on:
         branches: ["master"]
 
 jobs:
-    build-test-deploy:  
+    build-test:  
         runs-on: ubuntu-latest
 
         steps:
@@ -25,21 +25,12 @@ jobs:
           run: ls -al
         - name: Run unit Tests
           run: dotnet test --no-restore -v normal
-        - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-            aws-region: us-west-2
-        - name: Deploy application to Elastic Beanstalk
-          uses: aws-actions/elastic-beanstalk-deploy@v3
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-            region: us-east-1
-            application-name: bank-api
-            environment-name: bank-api-env
-            version-label: v1
+
+    # deploy:
+
+    # runs-on: ubuntu-latest
+    # needs: build-test
+ 
   
         
 
