@@ -77,9 +77,3 @@ To set up the CI/CD pipeline, follow these steps:
 
 ## Usage
 To trigger the CI/CD pipeline, push changes to the `master` branch. The pipeline will automatically run the build-test, and deploy stages.
-
-## Notes
-At the moment the build and test stage succeeds, deploy stage fails - due to payment
-But i have dockerized and tested that the app runs see image below:
-![image](https://github.com/user-attachments/assets/9c94b062-4d81-4089-888d-4656effbaa6c)
-
