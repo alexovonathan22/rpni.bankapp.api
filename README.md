@@ -20,50 +20,45 @@ This project uses GitHub Actions to implement a CI/CD pipeline. The pipeline inc
 The CI/CD workflow is defined in the `.github/workflows/build_and_test.yml` file. Below is a summary of the workflow:
 
 ```yaml
-name: CI/CD Pipeline
+name: Build and Test
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    push:
+        branches: ["master"]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build-test:  
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
-
-    - name: Build application
-      run: npm run build
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Deploy to production
-      run: |
-        echo "Deploying to production..."
-        # Add your deployment script here
+        steps:
+        - name: Checkout code on master
+          uses: actions/checkout@v4
+        - name: Setup .Net
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: 8.0.x
+        - name: Restore app dependencies
+          run: dotnet restore
+        - name: Build Project
+          run: dotnet build --no-restore
+        - name: Check PWD
+          run: pwd
+        - name: List PWD
+          run: ls -al
+        - name: Run unit Tests
+          run: dotnet test --no-restore -v normal
+    deploy:
+      runs-on: ubuntu-latest
+      needs: build-test
+      
+      steps:
+        - uses: actions/checkout@v2
+        - uses: akhileshns/heroku-deploy@v3.12.12
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+            heroku_email: ${{secrets.HEROKU_EMAIL}}
+            usedocker: true
 ```
 
 ## Setup
@@ -71,15 +66,15 @@ To set up the CI/CD pipeline, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/your-username/your-repo.git
-    cd your-repo
+    git clone https://github.com/alexovonathan22/rpni.bankapp.api.git
+    cd rpni.bankapp.api
     ```
 
 2. **Create the workflow file**:
-    Create a `.github/workflows/main.yml` file and add the workflow definition provided above.
+    Created a `.github/workflows/build_and_test.yml` file and added the workflow definition provided above.
 
 3. **Configure secrets**:
-    Add any necessary secrets (e.g., deployment keys) to your GitHub repository under **Settings > Secrets**.
+    Added necessary secrets (e.g., api key) to this GitHub repository under **Settings > Secrets** as seen in yaml file above.
 
 ## Usage
-To trigger the CI/CD pipeline, push changes to the `main` branch or create a pull request targeting the `main` branch. The pipeline will automatically run the build, test, and deploy stages.
+To trigger the CI/CD pipeline, push changes to the `master` branch. The pipeline will automatically run the build-test, and deploy stages.
